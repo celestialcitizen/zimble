@@ -1,0 +1,240 @@
+{
+	"feed" : {
+		"$" : {
+			"xmlns" : "http://www.w3.org/2005/Atom",
+			"xmlns:openSearch" : "http://a9.com/-/spec/opensearchrss/1.0/",
+			"xmlns:gsx" : "http://schemas.google.com/spreadsheets/2006/extended"
+		},
+		"id" : ["https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full"],
+		"updated" : ["2012-10-03T11:35:02.873Z"],
+		"category" : [{
+				"$" : {
+					"scheme" : "http://schemas.google.com/spreadsheets/2006",
+					"term" : "http://schemas.google.com/spreadsheets/2006#list"
+				}
+			}
+		],
+		"title" : [{
+				"_" : "Device List",
+				"$" : {
+					"type" : "text"
+				}
+			}
+		],
+		"link" : [{
+				"$" : {
+					"rel" : "alternate",
+					"type" : "text/html",
+					"href" : "https://spreadsheets.google.com/ccc?key=0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E"
+				}
+			}, {
+				"$" : {
+					"rel" : "http://schemas.google.com/g/2005#feed",
+					"type" : "application/atom+xml",
+					"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full"
+				}
+			}, {
+				"$" : {
+					"rel" : "http://schemas.google.com/g/2005#post",
+					"type" : "application/atom+xml",
+					"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full"
+				}
+			}, {
+				"$" : {
+					"rel" : "self",
+					"type" : "application/atom+xml",
+					"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full"
+				}
+			}
+		],
+		"author" : [{
+				"name" : ["celestialcitizen"],
+				"email" : ["celestialcitizen@gmail.com"]
+			}
+		],
+		"openSearch:totalResults" : ["4"],
+		"openSearch:startIndex" : ["1"],
+		"entry" : [{
+				"id" : ["https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/cpzh4"],
+				"updated" : ["2012-10-03T11:35:02.873Z"],
+				"category" : [{
+						"$" : {
+							"scheme" : "http://schemas.google.com/spreadsheets/2006",
+							"term" : "http://schemas.google.com/spreadsheets/2006#list"
+						}
+					}
+				],
+				"title" : [{
+						"_" : "dev1",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"content" : [{
+						"_" : "modeldetails: mod_det1, purchasedate: 12/3/1999, coverageperiod: 4, expirydate: 12/7/1999, emailalert: yes",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"link" : [{
+						"$" : {
+							"rel" : "self",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/cpzh4"
+						}
+					}, {
+						"$" : {
+							"rel" : "edit",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/cpzh4/32kgpg208ab23k"
+						}
+					}
+				],
+				"gsx:devicename" : ["dev1"],
+				"gsx:modeldetails" : ["mod_det1"],
+				"gsx:purchasedate" : ["12/3/1999"],
+				"gsx:coverageperiod" : ["4"],
+				"gsx:expirydate" : ["12/7/1999"],
+				"gsx:emailalert" : ["yes"]
+			}, {
+				"id" : ["https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/cre1l"],
+				"updated" : ["2012-10-03T11:35:02.873Z"],
+				"category" : [{
+						"$" : {
+							"scheme" : "http://schemas.google.com/spreadsheets/2006",
+							"term" : "http://schemas.google.com/spreadsheets/2006#list"
+						}
+					}
+				],
+				"title" : [{
+						"_" : "dev2",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"content" : [{
+						"_" : "modeldetails: mod_det2, purchasedate: 12/3/1998, coverageperiod: 4, expirydate: 12/7/1998, emailalert: yes",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"link" : [{
+						"$" : {
+							"rel" : "self",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/cre1l"
+						}
+					}, {
+						"$" : {
+							"rel" : "edit",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/cre1l/32kgpg43o4li6e"
+						}
+					}
+				],
+				"gsx:devicename" : ["dev2"],
+				"gsx:modeldetails" : ["mod_det2"],
+				"gsx:purchasedate" : ["12/3/1998"],
+				"gsx:coverageperiod" : ["4"],
+				"gsx:expirydate" : ["12/7/1998"],
+				"gsx:emailalert" : ["yes"]
+			}, {
+				"id" : ["https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/chk2m"],
+				"updated" : ["2012-10-03T11:35:02.873Z"],
+				"category" : [{
+						"$" : {
+							"scheme" : "http://schemas.google.com/spreadsheets/2006",
+							"term" : "http://schemas.google.com/spreadsheets/2006#list"
+						}
+					}
+				],
+				"title" : [{
+						"_" : "dev1",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"content" : [{
+						"_" : "modeldetails: mod_det1, purchasedate: 12/3/1999, coverageperiod: 4, expirydate: 12/7/1999",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"link" : [{
+						"$" : {
+							"rel" : "self",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/chk2m"
+						}
+					}, {
+						"$" : {
+							"rel" : "edit",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/chk2m/32kgpf4fj8g7ej"
+						}
+					}
+				],
+				"gsx:devicename" : ["dev1"],
+				"gsx:modeldetails" : ["mod_det1"],
+				"gsx:purchasedate" : ["12/3/1999"],
+				"gsx:coverageperiod" : ["4"],
+				"gsx:expirydate" : ["12/7/1999"],
+				"gsx:emailalert" : [{}
+					
+				]
+			}, {
+				"id" : ["https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/ciyn3"],
+				"updated" : ["2012-10-03T11:35:02.873Z"],
+				"category" : [{
+						"$" : {
+							"scheme" : "http://schemas.google.com/spreadsheets/2006",
+							"term" : "http://schemas.google.com/spreadsheets/2006#list"
+						}
+					}
+				],
+				"title" : [{
+						"_" : "dev1",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"content" : [{
+						"_" : "modeldetails: mod_det1, purchasedate: 12/3/1999, coverageperiod: 4, expirydate: 12/7/1999",
+						"$" : {
+							"type" : "text"
+						}
+					}
+				],
+				"link" : [{
+						"$" : {
+							"rel" : "self",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/ciyn3"
+						}
+					}, {
+						"$" : {
+							"rel" : "edit",
+							"type" : "application/atom+xml",
+							"href" : "https://spreadsheets.google.com/feeds/list/0AsknTlSB04IBdDktY0xCVlJsT1FpbElnSGNnOC1yc0E/1/private/full/ciyn3/32kgpf4fj8g7ej"
+						}
+					}
+				],
+				"gsx:devicename" : ["dev1"],
+				"gsx:modeldetails" : ["mod_det1"],
+				"gsx:purchasedate" : ["12/3/1999"],
+				"gsx:coverageperiod" : ["4"],
+				"gsx:expirydate" : ["12/7/1999"],
+				"gsx:emailalert" : [{}
+					
+				]
+			}
+		]
+	}
+}

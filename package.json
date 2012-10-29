@@ -1,0 +1,20 @@
+{
+  "name": "wm-app",
+  "scripts": {
+    "start": "app.js"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.6.x"
+  },
+  "subdomain": "wm.celestialcitizen",
+  "dependencies": {
+    "express": "2.5.8",
+    "express-resource": "0.2.4",
+    "jade": "0.26.0",
+    "request": "2.9.202",
+	"jstoxml":"0.1.0",
+	"xml2js":"0.2.0",
+	"async":"0.1.22"
+  }
+}

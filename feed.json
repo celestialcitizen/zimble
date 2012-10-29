@@ -1,0 +1,25 @@
+{
+  "feed": {
+    "-xmlns": "http://www.w3.org/2005/Atom",
+    "-xmlns:openSearch": "http://a9.com/-/spec/opensearchrss/1.0/",
+    "-xmlns:gsx": "http://schemas.google.com/spreadsheets/2006/extended",
+    "entry": [
+      {
+        "gsx:devicename": "dev1",
+        "gsx:modeldetails": "mod_det1",
+        "gsx:purchasedate": "12/3/1999",
+        "gsx:coverageperiod": "4",
+        "gsx:expirydate": "12/7/1999",
+        "gsx:emailalert": "yes"
+      },
+      {
+        "gsx:devicename": "dev2",
+        "gsx:modeldetails": "mod_det2",
+        "gsx:purchasedate": "12/3/1998",
+        "gsx:coverageperiod": "4",
+        "gsx:expirydate": "12/7/1998",
+        "gsx:emailalert": "yes"
+      }
+    ]
+  }
+}
