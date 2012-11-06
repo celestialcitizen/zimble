@@ -1,0 +1,3 @@
+EventId: u81leo4jgmhpc5olbebkevicmk
+CalendarID: tevqqntelhib6o04m4s5qph0qg@group.calendar.google.com
+https://www.googleapis.com/calendar/v3/calendars/tevqqntelhib6o04m4s5qph0qg%40group.calendar.google.com/events/u81leo4jgmhpc5olbebkevicmk?sendNotifications=true&key={YOUR_API_KEY}

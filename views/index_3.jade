@@ -1,0 +1,131 @@
+!!! 5
+html(lang='en')
+head
+    meta(charset='utf-8')
+    title Warranty Manager
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='node.js experimet to manage your device warranty')
+    meta(name='author', content='anand sunderraman')
+    link(href='http://netdna.bootstrapcdn.com/bootswatch/2.1.0/united/bootstrap.min.css', rel='stylesheet')
+    link(href='http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-responsive.min.css', rel='stylesheet')
+    link(href='/stylesheets/css/datepicker.css', rel='stylesheet')
+    style
+      body {
+      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+      th,td
+      {
+      word-wrap:break-word
+      }
+      div#device_list
+      {
+      display: table;
+      }
+      div#device_list_controls
+      {
+      display: table;
+      }
+      a.device_data
+      {
+      margin-top: 10px;
+      }
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a#home.brand(href='') Warranty Manager
+          .nav-collapse
+            ul.nav
+              li
+                a#accounts(href='') Your Gadgets
+              li
+                a(href='#contact') Contact
+            ul.nav.pull-right
+              li
+                if (typeof(email) !== undefined && email != '') 
+                  a#email(href='#email') #{email}	
+                else (typeof(googleLoginURI) !== undefined && googleLoginURI != '') 
+                  a#login(href ='#{googleLoginURI}') Login With Google
+    #home_page.container
+      .hero-unit
+        h1 Warranty Manager
+        p One Stop Shop To Manage Warranty Of Your Devices
+        p
+          a.btn.btn-primary.btn-large Learn more 
+      .row
+        .span4
+          h2 Manage Devices
+          p  Keep track of devices and the warranty / guarantee periods for these devices
+          p
+            a.btn(href='#') View details 
+        .span4
+          h2 Get Notified
+          p  Get email alerts notifying you which device's warranty has expired
+          p
+            a.btn(href='#') View details 
+        .span4
+          h2 Privacy
+          p
+            | Enjoy complete privacy as all the data is stored on google spreadsheets associated with your Google account
+          p
+            a.btn(href='#') View details 
+    #account_page.container(style='display: none;')
+      //
+        div class="container" id="account_page"
+      .row
+        //
+           SIde Menu 
+        .span2
+          ul.nav.nav-list
+            li.active
+              a(href='#') Your Gadgets
+        #device_list_panel.span10
+          #load_alert.alert
+            h4
+              | Loading Data ...
+              img(src='/stylesheets/img/ajax-loader.gif')
+          table#device-table.table.table-hover.table-bordered
+            thead
+              tr
+                th.label.label-info.span2
+                  | Device Name
+                th.label.label-info.span2
+                  | Coverage Expiry
+                th.label.label-info.span1
+                  | Delete
+            tbody
+          button#add_device_button.btn.btn-primary.span2 Add Device
+          button#save_device.btn.btn-primary.span2 Save
+    #add_device_modal.container(style='display: none;')
+      .modal-header
+        //
+          button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button
+        h3 Device Details
+      .modal-body
+        #add_device_err.alert.alert-block.alert-error.fade.in.hide
+          h4.alert-heading Please Fill In All Fields 
+        #save_alert.alert(style='display: none;')
+        input#dev_name.span2(type='text', placeholder='Device Name', data-placement='right', data-original-title='Enter Device Name')
+        br
+        input#mod_det.span2(type='text', placeholder='Model Details', data-placement='right', data-original-title='Enter Model Details')
+        br
+        input#p_date.span2(type='text', placeholder='Purchase Date', readonly='readonly', data-placement='right', data-original-title='Enter Purchase Date')
+        br
+        input#c_period.span2(type='number', placeholder='Coverage Period', rel='tooltip', data-placement='right', data-original-title='Enter # of Months')
+        br
+        label#e_alert_lbl.checkbox.span2
+          input#e_alert(type='checkbox')
+          | Google Calendar Alert
+        br
+      .modal-footer
+        a#ok_btn.btn.pull-left(href='') Add
+        a#cancel_btn.btn.btn-primary.pull-left(href='') Cancel
+    script(src='http://code.jquery.com/jquery-1.7.1.min.js')
+    script(src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js')
+    script(src='http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js')
+    script(src='/stylesheets/js/bootstrap-datepicker.js')
+    script(src='/stylesheets/js/warranty_manager.js')

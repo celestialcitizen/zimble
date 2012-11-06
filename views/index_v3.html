@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Warranty Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="node.js experimet to manage your device warranty">
+    <meta name="author" content="anand sunderraman">
+
+    
+    <link href="http://netdna.bootstrapcdn.com/bootswatch/2.1.0/united/bootstrap.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="stylesheets/css/datepicker.css" rel="stylesheet">
+	
+	
+	
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+	  
+	  th,td
+	  {
+		word-wrap:break-word
+	  }
+	  
+	  div#device_list
+	  {
+		display: table;
+	  }
+	  
+	  div#device_list_controls
+	  {
+		display: table;
+	  }
+	  
+	  a.device_data
+	  {
+		margin-top: 10px;
+	  }
+	  
+    </style>
+  
+  </head>
+
+  <body>
+
+     <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" id="home" href="">Warranty Manager</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a  id="accounts" href="">Your Gadgets</a></li>
+              <li><a href="#contact">Contact</a></li>
+			  
+            </ul>
+			 <ul class="nav pull-right">
+				<li>
+				  <a id="login_usr" href="https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http%3A%2F%2Flocalhost:3001%2Fwmrest%2Fauthorize&response_type=code&origin=http%3A%2F%2Flocalhost%3A3001&client_id=930662704169-25secosrcggebfi0o2782enonuqfq1p8.apps.googleusercontent.com" >Login</a>
+				 </li>
+			</ul>
+
+          </div>
+		 
+        </div>
+      </div>
+    </div>
+	
+	<div class="container" id="home_page" >
+	
+		<div class="hero-unit">
+        <h1>Warranty Manager</h1>
+        <p>One Stop Shop To Manage Warranty Of Your Devices</p>
+        <p><a class="btn btn-primary btn-large">Learn more >></a></p>
+      </div>
+	  
+	   <div class="row">
+        <div class="span4">
+          <h2>Manage Devices</h2>
+           <p> Keep track of devices and the warranty / guarantee periods for these devices</p>
+          <p><a class="btn" href="#">View details >></a></p>
+        </div>
+        <div class="span4">
+          <h2>Get Notified</h2>
+           <p> Get email alerts notifying you which device's warranty has expired</p>
+          <p><a class="btn" href="#">View details >></a></p>
+       </div>
+        <div class="span4">
+          <h2>Privacy</h2>
+          <p>Enjoy complete privacy as all the data is stored on google spreadsheets associated with your Google account  </p>
+          <p><a class="btn" href="#">View details >></a></p>
+        </div>
+      </div>
+	
+	</div>
+	
+	<div class="container" id="account_page" style="display:none;">
+	<!--div class="container" id="account_page"-->
+		    <div class="row">
+				<!-- SIde Menu -->
+				<div class="span2">
+					    <ul class="nav nav-list">
+							<li class="active"><a href="#">Your Gadgets</a></li>
+							
+						</ul>
+				</div>
+				<div class="span10" id="device_list_panel">
+					<div class="alert" id="load_alert">
+						<h4> Loading Data ... <img src="stylesheets/img/ajax-loader.gif" /> </h4>   
+					</div>
+					<table class="table table-hover table-bordered" id="device-table">
+						<thead >
+						<tr>
+							<th class="label label-info span2">
+								Device Name  
+							</th>
+							<th class="label label-info span2">
+								Coverage Expiry 
+							</th>
+							<th class="label label-info span1">
+								 Delete
+							</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					</table> 
+						<button id="add_device_button" class="btn btn-primary span2">Add Device</button>
+						<button id="save_device" class="btn btn-primary span2">Save</button>
+					
+				</div>
+				
+			</div>
+	</div>
+		
+	 <div class="container" id="add_device_modal" style="display:none;">
+		  <div class="modal-header">
+			<!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button-->
+			<h3>Device Details</h3>
+		  </div>
+		  <div class="modal-body">
+			<div class="alert alert-block alert-error fade in hide" id="add_device_err">
+				<h4 class="alert-heading">Please Fill In All Fields </h4>
+			</div>
+			<div class="alert" id="save_alert" style="display:none;">
+				
+			</div>
+			<input type="text" class="span2" placeholder="Device Name" id="dev_name" data-placement="right" data-original-title="Enter Device Name"> <br/>
+			<input type="text" class="span2" placeholder="Model Details" id="mod_det" data-placement="right" data-original-title="Enter Model Details"> <br/>
+			<input type="text" class="span2" placeholder="Purchase Date" id="p_date" readonly data-placement="right" data-original-title="Enter Purchase Date"> <br/>
+			<input type="number" class="span2" placeholder="Coverage Period" id="c_period" rel="tooltip" data-placement="right" data-original-title="Enter # of Months"> <br/>
+			
+			
+			<label class="checkbox span2" id="e_alert_lbl">
+				<input type="checkbox" id="e_alert" > Google Calendar Alert
+			</label> <br/>
+		  </div>
+		  <div class="modal-footer">
+			<a href="" class="btn pull-left" id="ok_btn">Add</a>
+			<a href="" class="btn btn-primary pull-left" id="cancel_btn">Cancel</a>
+		  </div>
+	</div>
+	
+	
+	  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js"></script>
+	  <script src="stylesheets/js/bootstrap-datepicker.js"></script>
+	  <script src="stylesheets/js/warranty_manager.js"></script>
+	  
+	 
+  </body>
+</html>
