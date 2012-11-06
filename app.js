@@ -34,6 +34,7 @@ app.get('/', routes.index);
 var servicesHandle = app.resource('wmrest',services);
 servicesHandle.map('get','/authorize',services.authorize);
 servicesHandle.map('post','/save_device',services.save_device);
+servicesHandle.map('post','/atomic_save',services.atomic_save);
 servicesHandle.map('get','/loadDeviceData',services.loadDeviceData);
 
 app.listen(3001, function(){

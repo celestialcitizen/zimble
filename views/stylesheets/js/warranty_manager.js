@@ -1,9 +1,13 @@
-	var deviceName =  '' , modelName =  '' , purchaseDate =  '' ,coveragePeriod =  '' ,emailAlert =  '', deviceCount = 0, deviceArray = {}, activeDeviceID = '' ;
+	var deviceName =  '' , modelName =  '' , purchaseDate =  '' ,coveragePeriod =  '' ,emailAlert =  '', deviceCount = 0, deviceArray = {}, activeDeviceID = '' ,userinfo = {};
 		
 	 
 		function resetForm()
 		{
-			$('input#dev_name,input#mod_det,input#p_date,input#c_period').val('');
+			$('input#dev_name,input#mod_det,input#p_date,input#c_period,#timezone').val('');
+			$('input#e_alert').removeAttr('checked');
+			 $('a#ok_btn').text('Add');
+			 $('#timezone').hide();
+			activeDeviceID = '';
 		}
 		
 		function validateForm()
@@ -51,7 +55,22 @@
 				errorMessage = errorMessage + 'input#c_period,';
 			}
 			
-			emailAlert = $('input#e_alert').val();
+			emailAlert = $('input#e_alert').is(':checked') ? 'Yes': 'No';
+			
+			//if the user wants an email alert and timezone is not set
+			//validate the timezone value
+			if(emailAlert == 'Yes' && !userinfo['timezone'])
+			{
+				if( $('#timezone').val() != '-1' )
+				{					
+					userinfo['timezone'] = $('#timezone').val();
+				}
+				else
+				{
+					errorFlag = true;
+					errorMessage = errorMessage + '#timezone,';
+				}
+			}
 			
 			if(errorFlag)
 			{
@@ -114,8 +133,10 @@
 			}
 			else
 			{
+				tempDeviceObj['updateurl'] = deviceArray[activeDeviceID]['updateurl'];
 				deviceArray[activeDeviceID] = tempDeviceObj;
 				var deviceIDRowSelector = 'a#' + activeDeviceID;
+				$(deviceIDRowSelector).text(deviceName);
 				$(deviceIDRowSelector).parent().next().html('<a class="span2"> ' + expiryDateString + '</a>');
 			}
 			resetForm();
@@ -124,11 +145,37 @@
 		
 		function saveDevice()
 		{
+			//appending userinfo in device array
+			deviceArray['userinfo'] = userinfo;
+			var savingHTML = '<h4> Loading Data ... <img src="stylesheets/img/ajax-loader.gif" /> </h4>  ';
+			$('div#load_alert').html(savingHTML);
+			
 			$.ajax({
 			  type: 'POST',
 			  url: 'http://localhost:3001/wmrest/save_device',
-			  data: deviceArray
-			  //success: success,
+			  data: deviceArray,
+			  success: function(result)
+			  {  
+					if(result['status'] == 'error')
+					{
+						$('div#load_alert').addClass('alert-error');
+						$('div#load_alert').html('<h4> Error Saving Changes </h4>');
+					}
+					
+					if(result['status'] == 'success')
+					{
+						$('div#load_alert').addClass('alert-success');
+						$('div#load_alert').html('<h4> Changes Saved Successfully </h4>');
+					}
+					
+					setTimeout(function() 
+					{
+						$('div#load_alert').hide('slow');
+						$('div#load_alert').removeClass('alert-error');
+						$('div#load_alert').removeClass('alert-success');
+						
+					}, 5000);
+			  }
 			  //dataType: dataType
 			});
 		}
@@ -166,7 +213,15 @@
 			 $('input#mod_det').val(deviceArray[deviceID].modeldetails);
 			 $('input#p_date').val(deviceArray[deviceID].purchasedate);
 			 $('input#c_period').val(deviceArray[deviceID].coverageperiod);
-			 $('input#e_alert').val(deviceArray[deviceID].emailalert);
+			 if(deviceArray[deviceID].emailalert == 'Yes')
+			 {
+				$('input#e_alert').attr('checked','checked');
+			}
+			else
+			{
+				$('input#e_alert').removeAttr('checked');
+			}
+			
 			 $('a#ok_btn').text('Update');
 			 //setting the global variable
 			 activeDeviceID =  deviceID;
@@ -225,6 +280,8 @@
 				{
 					addDevice();
 					$('#add_device_modal').modal('hide');
+					$('div#load_alert').html('<h4> Save Your Changes ... </h4>');
+					$('div#load_alert').show('slow');
 				}
 				
 			});
@@ -238,6 +295,9 @@
 			{
 				
 				$('#p_date').datepicker({format: 'dd/mm/yyyy'});
+				//if(userinfo['timezone'])
+				//	$('#timezone').hide();
+				
 				//$('input#dev_name,input#dev_name,input#p_date,input#c_period').tooltip('hide');
 			
 			});
@@ -245,6 +305,7 @@
 			$('#add_device_modal').on('hidden',function()
 			{
 				activeDeviceID = '';
+				resetForm();
 			});
 			
 			$('button#add_device_button').click(function(event)
@@ -268,4 +329,15 @@
 				$('#add_device_modal').modal();
 			});
 				
+			$('input#e_alert').change(function()
+			{
+				if($('input#e_alert').is(':checked') && !userinfo['timezone'])
+				{
+					$('#timezone').show('slow');
+				}
+				else
+				{
+					$('#timezone').show('hide');
+				}
+			});
 		});

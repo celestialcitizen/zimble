@@ -19,7 +19,7 @@ exports.index = function(req, res)
   if(req.session.username)
 		email = req.session.username;
 							
-  res.render('index_2',{
+  res.render('index_3',{
 								'googleLoginURI':googleLoginURI ,
 								'email': email }
 				);

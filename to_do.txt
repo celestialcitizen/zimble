@@ -1,7 +1,10 @@
 1. How to login as another user ?
 2. Make proxy option in one place
 3. Try using a different method for google authorization
-4. Make every add,update,delete operation atomic
-5. Remove the use of a modal box.
+4. Make every add,update,delete operation atomic -- Too much rework -- Done 
+5. Remove the use of a modal box -- Too much rework  -- Done 
 6. Use git
 7. Deploy to heroku.
+8. Don't load devices every time if devices are already loaded -- Done
+9. Handle cancel button click -- Done
+10. Resequence the addition of device to table to handle error scenarios 
