@@ -317,7 +317,7 @@
 	exports.atomic_save = function(req,res)
     {
 		//console.log(req.session.username);
-		//console.log(req.body);
+		console.log(req.body);
 		var device = req.body;
 		var userinfo = device['userinfo'];
 		var deviceList = new Array();
@@ -327,10 +327,11 @@
 		
 	
 	   tmpObj['gsx:devicename'] = device['devicename'];
-	   tmpObj['gsx:modeldetails'] = device['modeldetails'];
+	   //tmpObj['gsx:modeldetails'] = device['modeldetails'];
 	   tmpObj['gsx:purchasedate'] = device['purchasedate'];
-	   tmpObj['gsx:coverageperiod'] = device['coverageperiod'];
+	   //tmpObj['gsx:coverageperiod'] = device['coverageperiod'];
 	   tmpObj['gsx:expirydate'] = device['expirydate'];
+	   tmpObj['gsx:notes'] = device['notes'];
 	   tmpObj['gsx:emailalert'] = device['emailalert'];
 	   //tmpObj['gsx:eventid'] = device['eventid'];
 	   tmpObj['workSheetId'] = req.session.workSheetId;
@@ -376,7 +377,7 @@
 					
 					if( (device['updateurl'] && device['emailalert'] == 'No') ||  device['deleteurl'])
 					{
-						if(device['eventid']) // if an event exists
+						if(device['eventid'] && device['eventid'] != 'NA') // if an event exists
 						{
 							updateMethod = 'DELETE';
 						}
@@ -408,7 +409,7 @@
 							updateMethod = 'PATCH';
 						}
 						eventData['summary'] = 'Zimble Alert For ' + device['devicename'];
-						eventData['description'] =  'Coverage/Warranty/Guarantee Period For '  + device['devicename'] +  ' '  + device['modeldetails'] + ' will end on ' +  device['expirydate'];
+						eventData['description'] =  'Coverage/Warranty/Guarantee/Service Period For '  + device['devicename'] +  ' '  + ' will end on ' +  device['expirydate'];
 					}
 					
 					gserv.updateGoogleEvent(req,res,eventData,updateMethod,eventId,callback);
@@ -418,7 +419,7 @@
 			function(req,res,eventid,callback)
 			{
 				console.log('Async waterfall updating excel sheet');
-				//console.log('Event ID is : ' + eventid);
+				console.log('Event ID is : ' + eventid);
 				//gserv.createGoogleCalendar(flag,req,res,callback);
 				//update device/service and also update the eventid if necessary
 				var updateMethod = '';
@@ -445,10 +446,11 @@
 				{
 				   var tmpDeviceObj = {};	
 				   tmpDeviceObj['gsx:devicename'] = device['devicename'];
-				   tmpDeviceObj['gsx:modeldetails'] = device['modeldetails'];
+				   //tmpDeviceObj['gsx:modeldetails'] = device['modeldetails'];
 				   tmpDeviceObj['gsx:purchasedate'] = device['purchasedate'];
-				   tmpDeviceObj['gsx:coverageperiod'] = device['coverageperiod'];
+				   //tmpDeviceObj['gsx:coverageperiod'] = device['coverageperiod'];
 				   tmpDeviceObj['gsx:expirydate'] = device['expirydate'];
+				   tmpDeviceObj['gsx:notes'] = device['notes'];
 				   tmpDeviceObj['gsx:emailalert'] = device['emailalert'];
 				   if(eventid)
 						tmpDeviceObj['gsx:eventid'] = eventid;
@@ -737,10 +739,11 @@
 						
 						var tmpDevObj =  {};
 						tmpDevObj['devicename'] = deviceList[devCount]['gsx:devicename'][0];
-						tmpDevObj['modeldetails'] = deviceList[devCount]['gsx:modeldetails'][0];
+						//tmpDevObj['modeldetails'] = deviceList[devCount]['gsx:modeldetails'][0];
 						tmpDevObj['purchasedate'] = deviceList[devCount]['gsx:purchasedate'][0];
-						tmpDevObj['coverageperiod'] = deviceList[devCount]['gsx:coverageperiod'][0];
+						//tmpDevObj['coverageperiod'] = deviceList[devCount]['gsx:coverageperiod'][0];
 						tmpDevObj['expirydate'] = deviceList[devCount]['gsx:expirydate'][0];
+						tmpDevObj['notes'] = deviceList[devCount]['gsx:notes'][0];
 						tmpDevObj['emailalert'] = deviceList[devCount]['gsx:emailalert'][0];
 						tmpDevObj['eventid'] = deviceList[devCount]['gsx:eventid'][0];
 						if(deviceList[devCount]['link'][1]["$"]["href"])
@@ -763,10 +766,11 @@
 					
 						var tmpDevObj =  {};
 						tmpDevObj['devicename'] = deviceList['gsx:devicename'][0];
-						tmpDevObj['modeldetails'] = deviceList['gsx:modeldetails'][0];
+						//tmpDevObj['modeldetails'] = deviceList['gsx:modeldetails'][0];
 						tmpDevObj['purchasedate'] = deviceList['gsx:purchasedate'][0];
-						tmpDevObj['coverageperiod'] = deviceList['gsx:coverageperiod'][0];
+						//tmpDevObj['coverageperiod'] = deviceList['gsx:coverageperiod'][0];
 						tmpDevObj['expirydate'] = deviceList['gsx:expirydate'][0];
+						tmpDevObj['notes'] = deviceList['gsx:notes'][0];
 						tmpDevObj['emailalert'] = deviceList['gsx:emailalert'][0];
 						tmpDevObj['eventid'] = deviceList['gsx:eventid'][0];
 						if(deviceList['link'][1]["$"]["href"])

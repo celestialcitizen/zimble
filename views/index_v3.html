@@ -105,24 +105,19 @@
 	<!--div class="container" id="account_page"-->
 		    <div class="row">
 				<!-- SIde Menu -->
-				<div class="span2">
-					    <ul class="nav nav-list">
-							<li class="active"><a href="#">Your Gadgets</a></li>
-							
-						</ul>
-				</div>
-				<div class="span10" id="device_list_panel">
+				
+				<div class="offset2 span8" id="device_list_panel">
 					<div class="alert" id="load_alert">
 						<h4> Loading Data ... <img src="stylesheets/img/ajax-loader.gif" /> </h4>   
 					</div>
 					<table class="table table-hover table-bordered" id="device-table">
 						<thead >
 						<tr>
-							<th class="label label-info span2">
+							<th class="label label-info span3">
 								Device Name  
 							</th>
-							<th class="label label-info span2">
-								Coverage Expiry 
+							<th class="label label-info span1">
+								Edit
 							</th>
 							<th class="label label-info span1">
 								 Delete
@@ -144,6 +139,10 @@
 	
 	 <div class="container" id="add_device_modal" style="display:none;">
 		
+		<div class="row">
+		
+			<div class="offset2 span8" >
+		
 		  <div class="alert alert-block alert-error fade in hide" id="add_device_err">
 				<h4 class="alert-heading">Please Fill In All Fields </h4>
 		  </div>
@@ -159,13 +158,6 @@
 							</div>
 						  </div>
 						  
-						  <div class="control-group">
-							<label class="control-label" for="mod_det">Model Details</label>
-							<div class="controls">
-							  <input type="text" id="mod_det" placeholder="Model Details">
-							</div>
-						  </div>
-						  
 						   <div class="control-group">
 							<label class="control-label" for="p_date">Purchase Date</label>
 							<div class="controls">
@@ -177,6 +169,13 @@
 							<label class="control-label" for="e_date">Expiry Date</label>
 							<div class="controls">
 							  <input type="text" id="e_date" placeholder="Expiry Date">
+							</div>
+						  </div>
+						  
+						   <div class="control-group">
+							<label class="control-label" for="notes">Notes</label>
+							<div class="controls">
+							  <textarea rows="3" id="notes" placeholder="Notes"></textarea>
 							</div>
 						  </div>
 						  
@@ -197,6 +196,8 @@
 						  
 						</form>
 			</fieldset>
+			</div>
+		</div>
 	</div>
 	
 	

@@ -358,7 +358,7 @@
 		console.log('In updateGoogleEvent');
 		//console.log('updateMethod :' + updateMethod);
 		//console.log('updateData :' + updateData);
-		console.log(updateMethod + ' updating eventId :' + eventId);
+		//console.log(updateMethod + ' updating eventId :' + eventId);
 		if(updateMethod)
 		{
 			console.log('In updateGoogleEvent');

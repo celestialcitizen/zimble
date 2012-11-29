@@ -1,4 +1,5 @@
-	var deviceName =  '' , modelName =  '' , purchaseDate =  '' ,coveragePeriod =  '' ,emailAlert =  '', deviceCount = 0, deviceArray = {}, activeDeviceID = '' ,userinfo = {}, currentScreen = 'home';
+	var deviceName =  '' , modelName =  '' , purchaseDate =  '' , expiryDate =  '' ,coveragePeriod =  '' ,emailAlert =  '', deviceCount = 0, deviceArray = {}, activeDeviceID = '' ,userinfo = {};
+    var currentScreen = 'home', notes = '';
 	
 	var eventId = '' , eventFlag = true;
 	
@@ -8,7 +9,7 @@
 		function resetForm()
 		{
 			//$('input#dev_name,input#mod_det,input#p_date,input#c_period,#timezone').val('');
-			$('input#dev_name,input#mod_det,input#p_date,input#c_period').val('');
+			$('input#dev_name,input#p_date,input#e_date,input#notes').val('');
 			$('input#e_alert').removeAttr('checked');
 			$('a#ok_btn').text('Add');
 			//$('#timezone').hide();
@@ -18,7 +19,8 @@
 		function validateForm()
 		{
 			var errorMessage = '', errorFlag = false;
-			deviceName =  '' , modelName =  '' , purchaseDate =  '' ,coveragePeriod =  '' ,emailAlert =  '';
+			deviceName =  '' , modelName =  '' , purchaseDate =  '' ,coveragePeriod =  '' ,emailAlert =  '', notes = '';
+			notes = $('textarea#notes').val();
 			
 			if(  $('input#dev_name').val() )
 			{
@@ -30,7 +32,7 @@
 				errorMessage = errorMessage + 'input#dev_name,';
 			}
 			
-			if(  $('input#mod_det').val() )
+			/*if(  $('input#mod_det').val() )
 			{
 				modelName = $('input#mod_det').val();
 			}
@@ -38,7 +40,7 @@
 			{
 				errorFlag = true;
 				errorMessage = errorMessage + 'input#mod_det,';
-			}
+			}*/
 			
 			if(  $('input#p_date').val() )
 			{
@@ -50,7 +52,17 @@
 				errorMessage = errorMessage + 'input#p_date,';
 			}
 			
-			if(  $('input#c_period').val() && isNormalInteger($('input#c_period').val()) )
+			if(  $('input#e_date').val() )
+			{
+				expiryDate = $('input#e_date').val();
+			}
+			else
+			{
+				errorFlag = true;
+				errorMessage = errorMessage + 'input#e_date,';
+			}
+			
+			/*if(  $('input#c_period').val() && isNormalInteger($('input#c_period').val()) )
 			{
 				coveragePeriod = $('input#c_period').val();
 			}
@@ -58,25 +70,9 @@
 			{
 				errorFlag = true;
 				errorMessage = errorMessage + 'input#c_period,';
-			}
+			}*/
 			
 			emailAlert = $('input#e_alert').is(':checked') ? 'Yes': 'No';
-			
-			//if the user wants an email alert and timezone is not set
-			//validate the timezone value
-			//if(emailAlert == 'Yes' && !userinfo['timezone'])
-			if(emailAlert == 'Yes')
-			{
-				/*if( $('#timezone').val() != '-1' )
-				{					
-					userinfo['timezone'] = $('#timezone').val();
-				}
-				else
-				{
-					errorFlag = true;
-					errorMessage = errorMessage + '#timezone,';
-				}*/
-			}
 			
 			if(errorFlag)
 			{
@@ -99,9 +95,8 @@
 		
 		function addDevice()
 		{
-			var year = purchaseDate.split('/')[2] - 0, month = purchaseDate.split('/')[1] - 1, day = purchaseDate.split('/')[0];
-			//var tempPurchaseDate = new Date(year,month,day);
-			//var expiryDate = new Date(new Date(tempPurchaseDate).setMonth(tempPurchaseDate.getMonth()+ coveragePeriod));
+			/*var year = purchaseDate.split('/')[2] - 0, month = purchaseDate.split('/')[1] - 1, day = purchaseDate.split('/')[0];
+			
 			var addYears = 0, addMonths = 0;
 			coveragePeriod = parseInt(coveragePeriod);
 			if(coveragePeriod > 11)
@@ -115,26 +110,28 @@
 			}
 			
 			var expiryDate = new Date(year + addYears,month + addMonths,day);
-			//console.log(expiryDate.getMonth());
-			//expiryDate.setMonth(expiryDate.getMonth() + coveragePeriod);
-			//var expiryDateString = expiryDate.getDate() + '/' + (expiryDate.getMonth() + 1) + '/' + expiryDate.getFullYear();
+			
 			var expiryDateString = expiryDate.getFullYear() + '-' + (expiryDate.getMonth() + 1) + '-' + expiryDate.getDate();
-			var expiryDateStringUI = expiryDate.getDate() + '/' + (expiryDate.getMonth() + 1) + '/' + expiryDate.getFullYear();
+			var expiryDateStringUI = expiryDate.getDate() + '/' + (expiryDate.getMonth() + 1) + '/' + expiryDate.getFullYear();*/
 			var tempDeviceObj = 
 			{
 				'devicename' : deviceName,
-				'modeldetails' : modelName,
+				//'modeldetails' : modelName,
 				'purchasedate' : purchaseDate,
-				'coverageperiod' : coveragePeriod,
+				//'coverageperiod' : coveragePeriod,
 				'emailalert' : emailAlert,
-				'expirydate' : expiryDateString
+				//'expirydate' : expiryDateString
+				'expirydate' : expiryDate,
+				'notes' : notes
 			}
 			
 			if(activeDeviceID == '')
 			{
 				deviceArray['dev_' + deviceCount] = tempDeviceObj;
 				//var newDeviceRowHTML = '<tr><td><a class="span2 btn btn-primary device_data"  id="dev_' +  deviceCount + ' "> ' + deviceName + '</a> </td></tr>';
-				var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  deviceCount + '"> ' + deviceName + '</a> </td><td><a class="span2"> ' + expiryDateStringUI + '</a></td><td><i class="icon-trash"></i></td></tr>';
+				//var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  deviceCount + '"> ' + deviceName + '</a> </td><td><a class="span2"> ' + expiryDateStringUI + 
+				var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  deviceCount + '"> ' + deviceName + '</a> </td><td><a class="span2"> ' + expiryDate + 
+				'</a></td><td><i class="icon-trash"></i></td></tr>';
 				//$('div#device_list').append(newDeviceRowHTML);
 				$('tbody').append(newDeviceRowHTML);
 				atomicSaveDevice('dev_' + deviceCount);
@@ -156,7 +153,8 @@
 				deviceArray[activeDeviceID] = tempDeviceObj;
 				var deviceIDRowSelector = 'a#' + activeDeviceID;
 				$(deviceIDRowSelector).text(deviceName);
-				$(deviceIDRowSelector).parent().next().html('<a class="span2"> ' + expiryDateStringUI + '</a>');
+				//$(deviceIDRowSelector).parent().next().html('<a class="span2"> ' + expiryDateStringUI + '</a>');
+				$(deviceIDRowSelector).parent().next().html('<a class="span2"> ' + expiryDate + '</a>');
 				atomicSaveDevice(activeDeviceID);
 			}
 			//resetForm();
@@ -165,8 +163,8 @@
 		
 		function checkObjUpdates(oldObj)
 		{
-			//if(deviceName == oldObj.devicename && modelName == oldObj.modeldetails && purchaseDate == oldObj.purchasedate && coveragePeriod == oldObj.coverageperiod)
-			if(purchaseDate == oldObj.purchasedate && coveragePeriod == oldObj.coverageperiod)
+			//if(purchaseDate == oldObj.purchasedate && coveragePeriod == oldObj.coverageperiod)
+			if(purchaseDate == oldObj.purchasedate && expiryDate == oldObj.expiryDate)
 				return true;
 			else
 				return false;
@@ -240,7 +238,8 @@
 						$('div#save_alert').addClass('alert-success');
 						$('div#save_alert').html('<h4> Changes Saved Successfully </h4>');
 						resetForm();
-						$('div#add_device_err').hide(function(){ $('input#dev_name,input#mod_det,input#p_date,input#c_period,input#e_alert').tooltip('hide');});
+						//$('div#add_device_err').hide(function(){ $('input#dev_name,input#mod_det,input#p_date,input#c_period,input#e_alert').tooltip('hide');});
+						$('div#add_device_err').hide(function(){ $('input#dev_name,input#p_date,input#e_date,input#notes').tooltip('hide');});
 						//deviceCount++;
 						if(result['curr_obj'] && result['curr_obj']['updateurl'] && result['curr_obj']['eventid'])
 						{
@@ -267,6 +266,7 @@
 			//deviceArray[deviceKey]['userinfo'] = userinfo;
 			var updateurl = deviceArray[deviceKey]['updateurl'];
 			deviceArray[deviceKey]['deleteurl'] = updateurl;
+			delete deviceArray[deviceKey]['updateurl'];
 			
 			
 			var savingHTML = '<h4> Deleting Device ... <img src="stylesheets/img/ajax-loader.gif" /> </h4>  ';
@@ -285,7 +285,8 @@
 						$('div#load_alert').addClass('alert-error');
 						$('div#load_alert').html('<h4> Error Deleting Device </h4>');
 						resetForm();
-						$('div#add_device_err').hide(function(){ $('input#dev_name,input#mod_det,input#p_date,input#c_period,input#e_alert').tooltip('hide');});
+						//$('div#add_device_err').hide(function(){ $('input#dev_name,input#mod_det,input#p_date,input#c_period,input#e_alert').tooltip('hide');});
+						$('div#add_device_err').hide(function(){ $('input#dev_name,input#p_date,input#e_date,input#notes').tooltip('hide');});
 					}
 					
 					if(result['status'] == 'success')
@@ -293,7 +294,7 @@
 						$('div#load_alert').addClass('alert-success');
 						$('div#load_alert').html('<h4> Deleted Device Successfully </h4>');
 						resetForm();
-						$('div#add_device_err').hide(function(){ $('input#dev_name,input#mod_det,input#p_date,input#c_period,input#e_alert').tooltip('hide');});
+						$('div#add_device_err').hide(function(){ $('input#dev_name,input#p_date,input#e_date,input#notes').tooltip('hide');});
 						$('a#'+deviceKey).parent().parent().remove();
 						delete deviceArray[deviceKey];
 					}
@@ -332,7 +333,10 @@
 			$('tbody').empty();
 			for(var devCtr = 0; devCtr < deviceCount; devCtr++)
 			{
-				var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  devCtr + '"> ' + deviceArray['dev_' + devCtr].devicename + '</a> </td><td><a class="span2"> ' + deviceArray['dev_' + devCtr].expirydate + '</a></td><td><i class="icon-trash"></i></td></tr>';
+				/*var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  devCtr + '"> ' + deviceArray['dev_' + devCtr].devicename + '</a> </td><td><a class="span2"> ' + deviceArray['dev_' 
+				+ devCtr].expirydate + '</a></td><td><i class="icon-trash"></i></td></tr>';*/
+				var newDeviceRowHTML = '<tr><td><a class="span3 device_data"  id="dev_' +  devCtr + '"> ' + deviceArray['dev_' + devCtr].devicename + '</a> </td><td> <i class="icon-edit"></i> </td>' + 
+				'<td> <i class="icon-trash"></i> </td></tr>';
 				$('tbody').append(newDeviceRowHTML);
 			}
 		}
@@ -340,9 +344,11 @@
 		function loadPanel(deviceID)
 		{
 			 $('input#dev_name').val(deviceArray[deviceID].devicename);
-			 $('input#mod_det').val(deviceArray[deviceID].modeldetails);
+			 //$('input#mod_det').val(deviceArray[deviceID].modeldetails);
 			 $('input#p_date').val(deviceArray[deviceID].purchasedate);
-			 $('input#c_period').val(deviceArray[deviceID].coverageperiod);
+			 $('input#e_date').val(deviceArray[deviceID].expirydate);
+			 $('input#notes').val(deviceArray[deviceID].notes);
+			 //$('input#c_period').val(deviceArray[deviceID].coverageperiod);
 			 if(deviceArray[deviceID].emailalert == 'Yes')
 			 {
 				$('input#e_alert').attr('checked','checked');
@@ -453,7 +459,8 @@
 			$('a#cancel_btn').click(function(event)
 			{
 				event.preventDefault();				
-				$('input#dev_name,input#mod_det,input#p_date,input#c_period,input#e_alert').tooltip('hide');
+				//$('input#dev_name,input#mod_det,input#p_date,input#c_period,input#e_alert').tooltip('hide');
+				$('input#dev_name,input#p_date,input#e_date,input#notes').tooltip('hide');
 				$('div#add_device_err').hide();
 				goToDeviceList();
 				//$('#add_device_modal').modal('hide');
@@ -472,52 +479,52 @@
 				//saveDevice();
 			});
 			
-			$('#add_device_modal').on('shown',function()
+			$('i.icon-edit').live('click',function(event)
 			{
-				
-				$('#p_date').datepicker({format: 'dd/mm/yyyy'});
-				//if(userinfo['timezone'])
-				//	$('#timezone').hide();
-				
-				//$('input#dev_name,input#dev_name,input#p_date,input#c_period').tooltip('hide');
+				var deviceKey = $(this).parent().prev().children('a.device_data').attr('id');
+				$('div#account_page').hide('slide',{direction:'left'},500,function()
+				{
+					
+					$('div#add_device_modal').show('slide',{direction:'right'},500);
+					currentScreen = 'deviceDetails';
+					loadPanel(deviceKey);
+					$('div#save_alert').hide();
+					$('#p_date').datepicker({format: 'dd/mm/yyyy'});
+					$('#e_date').datepicker({format: 'dd/mm/yyyy'});
+				});
+				//saveDevice();
+			});
 			
+			/*$('#add_device_modal').on('shown',function()
+			{
+				$('#p_date').datepicker({format: 'dd/mm/yyyy'});
 			});
 			
 			$('#add_device_modal').on('hidden',function()
 			{
 				activeDeviceID = '';
 				resetForm();
-			});
+			});*/
 			
 			//$('button#add_device_button').click(function(event)
 			$('button#add_device_button').on('click',function(event)
 			{
-				//$('#add_device_modal').modal();
-				//$('div#device_list_panel').hide('slide',{direction:'left'},500);
-				
+			
 				$('div#account_page').hide('slide',{direction:'left'},500,function()
 				{
 					
 					$('div#add_device_modal').show('slide',{direction:'right'},500);
 					$('div#save_alert').hide();
 					$('#p_date').datepicker({format: 'dd/mm/yyyy'});
+					$('#e_date').datepicker({format: 'dd/mm/yyyy'});
 					currentScreen = 'deviceDetails';
 				});
-				
-				//$('#add_device_modal').on('hidden',function()
-				//{
-					//$('input#c_period').tooltip('hide');
-					//$('input#dev_name,input#dev_name,input#p_date,input#c_period').tooltip('hide');
-					//resetForm();
-					//$('div#add_device_err').hide(function(){ $('input#dev_name,input#mod_det,input#p_date,input#c_period').tooltip('hide');});
-					
-				//});
 			});
 			
 			$('a.device_data').live('click',function(event)
 			{
 				event.preventDefault();
-				var deviceID =  $(this).attr('id');
+				/*var deviceID =  $(this).attr('id');
 				$('div#account_page').hide('slide',{direction:'left'},500,function()
 				{
 					
@@ -526,21 +533,11 @@
 					loadPanel(deviceID);
 					$('div#save_alert').hide();
 					$('#p_date').datepicker({format: 'dd/mm/yyyy'});
-				});
+					$('#e_date').datepicker({format: 'dd/mm/yyyy'});
+				});*/
 				
 				//$('#add_device_modal').modal();
 			});
 				
-			$('input#e_alert').change(function()
-			{
-				//if($('input#e_alert').is(':checked') && !userinfo['timezone'])
-				/*if($('input#e_alert').is(':checked'))
-				{
-					$('#timezone').show('slow');
-				}
-				else
-				{
-					$('#timezone').hide('slow');
-				}*/
-			});
+			
 		});

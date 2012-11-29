@@ -79,11 +79,7 @@ head
       .row
         //
            SIde Menu 
-        .span2
-          ul.nav.nav-list
-            li.active
-              a(href='#') Your Gadgets
-        #device_list_panel.span10
+        #device_list_panel.offset2.span8
           #load_alert.alert
             h4
               | Loading Data ...
@@ -91,39 +87,50 @@ head
           table#device-table.table.table-hover.table-bordered
             thead
               tr
-                th.label.label-info.span2
+                th.label.label-info.span3
                   | Device Name
-                th.label.label-info.span2
-                  | Coverage Expiry
+                th.label.label-info.span1
+                  | Edit
                 th.label.label-info.span1
                   | Delete
             tbody
           button#add_device_button.btn.btn-primary.span2 Add Device
-          button#save_device.btn.btn-primary.span2 Save
+          //
+            button id="save_device" class="btn btn-primary span2">Save</button
     #add_device_modal.container(style='display: none;')
-      .modal-header
-        //
-          button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button
-        h3 Device Details
-      .modal-body
-        #add_device_err.alert.alert-block.alert-error.fade.in.hide
-          h4.alert-heading Please Fill In All Fields 
-        #save_alert.alert(style='display: none;')
-        input#dev_name.span2(type='text', placeholder='Device Name', data-placement='right', data-original-title='Enter Device Name')
-        br
-        input#mod_det.span2(type='text', placeholder='Model Details', data-placement='right', data-original-title='Enter Model Details')
-        br
-        input#p_date.span2(type='text', placeholder='Purchase Date', readonly='readonly', data-placement='right', data-original-title='Enter Purchase Date')
-        br
-        input#c_period.span2(type='number', placeholder='Coverage Period', rel='tooltip', data-placement='right', data-original-title='Enter # of Months')
-        br
-        label#e_alert_lbl.checkbox.span2
-          input#e_alert(type='checkbox')
-          | Google Calendar Alert
-        br
-      .modal-footer
-        a#ok_btn.btn.pull-left(href='') Add
-        a#cancel_btn.btn.btn-primary.pull-left(href='') Cancel
+      .row
+        .offset2.span8
+          #add_device_err.alert.alert-block.alert-error.fade.in.hide
+            h4.alert-heading Please Fill In All Fields 
+          #save_alert.alert(style='display: none;')
+          fieldset
+            legend  Device Details 
+            form.form-horizontal
+              .control-group
+                label.control-label(for='dev_name') Device Name
+                .controls
+                  input#dev_name(type='text', placeholder='Device Name')
+              .control-group
+                label.control-label(for='p_date') Purchase Date
+                .controls
+                  input#p_date(type='text', placeholder='Purchase Date')
+              .control-group
+                label.control-label(for='e_date') Expiry Date
+                .controls
+                  input#e_date(type='text', placeholder='Expiry Date')
+              .control-group
+                label.control-label(for='notes') Notes
+                .controls
+                  textarea#notes(rows='3', placeholder='Notes')
+              .control-group
+                .controls
+                  label.checkbox
+                    input(type='checkbox')
+                    | Calendar Alert
+              .control-group
+                .controls
+                  a#ok_btn.btn.pull-left(href='') Add
+                  a#cancel_btn.btn.btn-primary.pull-left(href='') Cancel
     script(src='http://code.jquery.com/jquery-1.7.1.min.js')
     script(src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js')
     script(src='http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js')

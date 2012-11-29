@@ -8,3 +8,27 @@
 8. Don't load devices every time if devices are already loaded -- Done
 9. Handle cancel button click -- Done
 10. Resequence the addition of device to table to handle error scenarios 
+11. Remove coverage period and make it expiry date, remove model name -- Done	  
+12. Add a field for notes -- Done
+	 -- Modify html
+	 -- in warranty manager.js change
+		--resetForm
+		--validateForm()
+		--addDevice() 
+			-- remove the computation for calculating the expiry date
+		--atomicSaveDevice(deviceKey)
+			-- change the line after resetForm();
+		--deleteDevice(deviceKey)
+			---- change the line after resetForm();
+		-- loadPanel(deviceID)
+		--$('a#cancel_btn').click(function(event)
+		$('#p_date').datepicker({format: 'dd/mm/yyyy'});
+			-- add date picker for expiry date
+13. Move login button tp home page / remove accounts button
+		-- Keep Login Button At Top For Desktops / Tablets
+		-- As a sticky footer for mobiles at the bottom
+14. Give a simple intro at start
+15. Deploy to Heroku
+16. Handle cases when access is denied to google account
+17. In the device list remove column coverage expiry and replace with edit
+18. Understand View Port
