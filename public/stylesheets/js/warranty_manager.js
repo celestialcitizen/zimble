@@ -5,6 +5,13 @@
 	
 	var baseURL = 'http://localhost:3001';
 		
+		function elementExists(selector)
+		{
+			if($(selector).length == 0)
+				return false;
+			else
+				return true;
+		}
 	 
 		function resetForm()
 		{
@@ -386,6 +393,22 @@
 			var deviceArray = {};
 			var deviceCount = 0;
 			
+			//if the user is authenticated successfully then redirect him to the accounts page
+			if( eval(elementExists('a#email')) )
+			{
+				if( currentScreen != 'deviceList' &&  currentScreen != 'deviceDetails')
+				{
+					//$(this).parent().addClass('active');
+					$('div#home_page').hide('slide',{direction:'left'},500,function()
+					{
+						$('div#account_page').show('slide',{direction:'right'},500);
+						currentScreen = 'deviceList';
+						if(eval(jQuery.isEmptyObject(deviceArray)))
+							getDevices();
+					});
+				}
+			}
+			
 			$('a#accounts').click(function(event)
 			{
 				event.preventDefault();
@@ -440,6 +463,28 @@
 					}
 				}
 			});			
+			
+			
+			$('a#example').click(function(event)
+			{
+				event.preventDefault();
+				$('div#home_page').hide('slide',{direction:'left'},500,function()
+				{
+					$('div#example_data').show('slide',{direction:'right'},500);
+					currentScreen = 'exampleData';
+				});
+			});
+			
+			
+			$('a#back_home').click(function(event)
+			{
+				event.preventDefault();
+				$('div#example_data').hide('slide',{direction:'left'},500,function()
+				{
+					$('div#home_page').show('slide',{direction:'right'},500);
+					currentScreen = 'home';
+				});
+			});
 			
 			$('a#ok_btn').click(function(event)
 			{
