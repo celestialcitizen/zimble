@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Warranty Manager</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1.0">
     <meta name="description" content="node.js experimet to manage your device warranty">
     <meta name="author" content="anand sunderraman">
 
@@ -11,35 +11,11 @@
     <link href="http://netdna.bootstrapcdn.com/bootswatch/2.1.0/united/bootstrap.min.css" rel="stylesheet">
 	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="stylesheets/css/datepicker.css" rel="stylesheet">
+	<link href="stylesheets/css/zimble.css" rel="stylesheet">
 	
 	
 	
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-	  
-	  th,td
-	  {
-		word-wrap:break-word
-	  }
-	  
-	  div#device_list
-	  {
-		display: table;
-	  }
-	  
-	  div#device_list_controls
-	  {
-		display: table;
-	  }
-	  
-	  a.device_data
-	  {
-		margin-top: 10px;
-	  }
-	  
-    </style>
+    
   
   </head>
 
@@ -48,25 +24,16 @@
      <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" id="home" href="">Warranty Manager</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li><a  id="accounts" href="">Your Gadgets</a></li>
-              <li><a href="#contact">Contact</a></li>
-			  
-            </ul>
-			 <ul class="nav pull-right">
+          <a class="brand" id="home" href="">Zimble</a>
+          
+            
+			 <ul class="nav pull-right hidden-phone">
 				<li>
 				  <a id="login_usr" href="https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http%3A%2F%2Flocalhost:3001%2Fwmrest%2Fauthorize&response_type=code&origin=http%3A%2F%2Flocalhost%3A3001&client_id=930662704169-25secosrcggebfi0o2782enonuqfq1p8.apps.googleusercontent.com" >Login</a>
 				 </li>
 			</ul>
 
-          </div>
+          
 		 
         </div>
       </div>
@@ -74,30 +41,98 @@
 	
 	<div class="container" id="home_page" >
 	
-		<div class="hero-unit">
-        <h1>Warranty Manager</h1>
-        <p>One Stop Shop To Manage Warranty Of Your Devices</p>
-        <p><a class="btn btn-primary btn-large">Learn more >></a></p>
-      </div>
-	  
-	   <div class="row">
-        <div class="span4">
-          <h2>Manage Devices</h2>
-           <p> Keep track of devices and the warranty / guarantee periods for these devices</p>
-          <p><a class="btn" href="#">View details >></a></p>
-        </div>
-        <div class="span4">
-          <h2>Get Notified</h2>
-           <p> Get email alerts notifying you which device's warranty has expired</p>
-          <p><a class="btn" href="#">View details >></a></p>
-       </div>
-        <div class="span4">
-          <h2>Privacy</h2>
-          <p>Enjoy complete privacy as all the data is stored on google spreadsheets associated with your Google account  </p>
-          <p><a class="btn" href="#">View details >></a></p>
-        </div>
-      </div>
+		<div class="row">
+			
+			<div class="offset2 span2 label label-info hidden-phone">
+				<div class="intro ">
+					<h1>?</h1>
+				</div>
+			</div>
+			
+			<div class="span5 label label-info" id="what">
+					<h3> What's It</h3><br/>
+					<div class="intro_text">
+							<ul class="unstyled">
+							  <li>Utility To Store Device / Gadget Info</li>
+							  <li>Maintain Service Log </li>
+							  <li>Get Reminders </li>
+							  <li>Everything Online !!</li>
+							  <li><a class="intro_link" id="example">See Example >> </a></li>
+							</ul>
+					</div>
+					
+			</div>
+		</div> <br/>
+		
+		
+		<div class="row">
+		
+			<div class="offset2 span5 label label-info" id="diff">
+						<h3> How's It Built</h3><br/>
+						<div class="intro_text">
+								<ul class="unstyled">
+								  <li>NodeJS</li>
+								  <li>Twitter BootStrap</li>
+								  <li>Google OAuth 2.0</li>
+								  <li>Google Spreadsheet API</li>
+								  <li>Google Calendar API</li>
+								</ul>
+						</div>
+			</div>
+			<div class="span2 label label-info hidden-phone">
+				<div class="intro">
+					<h1>!</h1>
+				</div>
+			</div>
+		
+		</div>
+		
+		<br/>
+		
+		<div class="row">
+		
+			<div class="offset2 span2 label label-info hidden-phone">
+				<div class="intro2">
+					<h1>@</h1>
+				</div>
+			</div>
+			<div class="span5 label label-info" id="how">
+				<h3> What's Cool</h3><br/>
+				<div class="intro_text">
+					<ul class="unstyled">
+					  <li>Data In YOUR Google Spreadsheets</li>
+					  <li>Reminders In YOUR Google Calendar</li>
+					  <li>Data Privacy</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		
+		<br/>
+		
+		<div class="row">
+			<div class="offset2 span5 label label-info" id="who">
+						<h3> Who's Created It</h3><br/>
+						<div class="intro_text">
+							<ul class="unstyled">
+							  <li>Anand Sunderraman</li>
+							  <li>Experimenting On NodeJS</li>
+							  <li>Built It Just For FUN !!</li>
+							</ul>
+						</div>
+			</div>
+				<div class=" span2 label label-info hidden-phone">
+				<div class="intro2">
+					<h1>#</h1>
+				</div>
+			</div>
+		
+		</div>
 	
+		<br/>
+		
+		
 	</div>
 	
 	
@@ -200,6 +235,17 @@
 		</div>
 	</div>
 	
+	<div class="navbar navbar-fixed-bottom visible-phone">
+		<div class="navbar-inner">
+			 <div class="container footer">
+				 <ul class="nav">
+					<li>
+					  <a id="login_usr" href="https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http%3A%2F%2Flocalhost:3001%2Fwmrest%2Fauthorize&response_type=code&origin=http%3A%2F%2Flocalhost%3A3001&client_id=930662704169-25secosrcggebfi0o2782enonuqfq1p8.apps.googleusercontent.com" >Login</a>
+					 </li>
+				</ul>
+			 </div>
+		</div>
+	</div>
 	
 	  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
