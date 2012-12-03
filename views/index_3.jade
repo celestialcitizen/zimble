@@ -3,76 +3,85 @@ html(lang='en')
 head
     meta(charset='utf-8')
     title Warranty Manager
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='viewport', content='width=device-width, height=device-height,initial-scale=1.0')
     meta(name='description', content='node.js experimet to manage your device warranty')
     meta(name='author', content='anand sunderraman')
     link(href='http://netdna.bootstrapcdn.com/bootswatch/2.1.0/united/bootstrap.min.css', rel='stylesheet')
     link(href='http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-responsive.min.css', rel='stylesheet')
     link(href='/stylesheets/css/datepicker.css', rel='stylesheet')
-    style
-      body {
-      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-      th,td
-      {
-      word-wrap:break-word
-      }
-      div#device_list
-      {
-      display: table;
-      }
-      div#device_list_controls
-      {
-      display: table;
-      }
-      a.device_data
-      {
-      margin-top: 10px;
-      }
+    link(href='/stylesheets/css/zimble.css', rel='stylesheet')
   body
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a#home.brand(href='') Warranty Manager
-          .nav-collapse
-            ul.nav
-              li
-                a#accounts(href='') Your Gadgets
-              li
-                a(href='#contact') Contact
-            ul.nav.pull-right
-              li
+          a#home.brand(href='') Zimble
+          ul.nav.pull-right.hidden-phone
+             li
                 if (typeof(email) !== undefined && email != '') 
                   a#email(href='#email') #{email}	
                 else (typeof(googleLoginURI) !== undefined && googleLoginURI != '') 
-                  a#login(href ='#{googleLoginURI}') Login With Google
+                  a#login(href ='#{googleLoginURI}') 
+                    | Login With &nbsp;
+                    img(src='/stylesheets/img/google.png')
     #home_page.container
-      .hero-unit
-        h1 Warranty Manager
-        p One Stop Shop To Manage Warranty Of Your Devices
-        p
-          a.btn.btn-primary.btn-large Learn more 
       .row
-        .span4
-          h2 Manage Devices
-          p  Keep track of devices and the warranty / guarantee periods for these devices
-          p
-            a.btn(href='#') View details 
-        .span4
-          h2 Get Notified
-          p  Get email alerts notifying you which device's warranty has expired
-          p
-            a.btn(href='#') View details 
-        .span4
-          h2 Privacy
-          p
-            | Enjoy complete privacy as all the data is stored on google spreadsheets associated with your Google account
-          p
-            a.btn(href='#') View details 
+        .offset2.span2.label.label-info.hidden-phone
+          .intro
+            h1 ?
+        #what.span5.label.label-info
+          h3  What's It
+          br
+          .intro_text
+            ul.unstyled
+              li Utility To Store Device / Gadget Info
+              li Maintain Service Log 
+              li Get Reminders 
+              li Everything Online !!
+              li
+                a#example.intro_link
+                  | See Example
+      br
+      .row
+        #diff.offset2.span5.label.label-info
+          h3  How's It Built
+          br
+          .intro_text
+            ul.unstyled
+              li NodeJS
+              li Twitter BootStrap
+              li Google OAuth 2.0
+              li Google Spreadsheet API
+              li Google Calendar API
+        .span2.label.label-info.hidden-phone
+          .intro
+            h1 !
+      br
+      .row
+        .offset2.span2.label.label-info.hidden-phone
+          .intro2
+            h1 @
+        #how.span5.label.label-info
+          h3  What's Cool
+          br
+          .intro_text
+            ul.unstyled
+              li Data In YOUR Google Spreadsheets
+              li Reminders In YOUR Google Calendar
+              li Data Privacy
+      br
+      .row
+        #who.offset2.span5.label.label-info
+          h3  Who's Created It
+          br
+          .intro_text
+            ul.unstyled
+              li Anand Sunderraman
+              li Experimenting On NodeJS
+              li Built It Just For FUN !!
+        .span2.label.label-info.hidden-phone
+          .intro2
+            h1 #
+      br
     #account_page.container(style='display: none;')
       //
         div class="container" id="account_page"
@@ -131,6 +140,78 @@ head
                 .controls
                   a#ok_btn.btn.pull-left(href='') Add
                   a#cancel_btn.btn.btn-primary.pull-left(href='') Cancel
+    #example_data.container(style='display: none;')
+      .row
+        .offset2.span8
+          a#back_home.btn.btn-primary.pull-right(href='')
+            i.icon-home
+            | Home
+      .row
+        .offset2.span8
+          ul.nav.nav-tabs
+            li.active
+              a(href='#dev_info', data-toggle='tab') Device Info 
+            li
+              a(href='#service_log', data-toggle='tab') Service Log
+          .tab-content
+            #dev_info.tab-pane.fade.in.active
+              .alert.alert-info
+                h4  Example For Storing Device Info
+                br
+                p
+                  strong   Device Name   
+                  | - can be whatever name you choose. eg.
+                  strong  Sony Xperia Mobile 
+                  br
+                  strong   Purchase Date  
+                  | - date a device was purchased eg.
+                  strong  12/12/2012 
+                  br
+                  strong   Expiry Date  
+                  | - date warranty of the device expires eg.
+                  strong  12/6/2013 
+                  br
+                  strong   Notes  
+                  | - can contain comments for personal reference
+                  br
+                  strong   Calendar Alert  
+                  | -  if checked, creates an event in Google Calendar, to indicate the completion of warranty period
+                  br
+            #service_log.tab-pane.fade.in
+              .alert.alert-info
+                h4  Example For Storing Service Info
+                br
+                p
+                  strong   Device Name  
+                  | -  device / gadget / item that was serviced eg.
+                  strong  Bajaj Pulsar 
+                  br
+                  strong   Purchase Date  
+                  | -  date it was serviced eg.
+                  strong  12/12/2012 
+                  br
+                  strong   Expiry Date  
+                  | - date it is next due for service eg.
+                  strong  12/3/2013 
+                  br
+                  strong   Notes  
+                  | - can contain comments for personal reference. eg.
+                  strong  Tyres changed etc. 
+                  br
+                  strong   Calendar Alert  
+                  | - if checked, creates an event in Google Calendar for the next service due date
+                  br
+    .navbar.navbar-fixed-bottom.visible-phone
+      .navbar-inner
+        .container.footer
+          ul.nav
+             li
+                if (typeof(email) !== undefined && email != '') 
+                  a#email(href='#email') #{email}	
+                else (typeof(googleLoginURI) !== undefined && googleLoginURI != '') 
+                  a#login(href ='#{googleLoginURI}') 
+                    | Login With &nbsp;
+                    img(src='/stylesheets/img/google.png')
     script(src='http://code.jquery.com/jquery-1.7.1.min.js')
     script(src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js')
     script(src='http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js')
