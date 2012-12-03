@@ -1,0 +1,92 @@
+	  body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+	  
+	  th,td
+	  {
+		word-wrap:break-word
+	  }
+	  
+	  div#device_list
+	  {
+		display: table;
+	  }
+	  
+	  div#device_list_controls
+	  {
+		display: table;
+	  }
+	  
+	  a.device_data
+	  {
+		margin-top: 10px;
+	  }
+	  
+	  #what,#diff,#how,#who
+	  {
+		text-align:center;
+		vertical-align:middle;
+		border: 2px solid #FFFFFF;
+	  }
+	  
+	  span.label-info
+	  {
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;
+		background-color: white;
+		color: #772953;
+	  }
+	  
+	  .intro,.intro2
+	  {
+		/*-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;*/
+		background-color: white;
+		color: #772953;
+		margin: 4px;
+		padding: 2px;
+		text-align: center;
+	  }
+	  
+	  .intro h1
+	  {
+		font-size: 140px;
+		line-height: 150px;
+	  }
+	  
+	  .intro2 h1
+	  {
+		font-size: 105px;
+		line-height: 115px;
+	  }
+	  
+	  .table td
+	  {
+		text-align:center;
+	  }
+	  
+	  .intro_text
+	  {
+		text-align:center;
+		vertical-align:middle;
+		white-space:normal;
+		/*margin: 0px 2px 0px 0px;*/
+	  }
+	  
+	  a:hover.intro_link ,a.intro_link 
+	  {
+		color:white;
+	  }
+	  
+	  ul.unstyled
+	  {
+		text-align:center;
+	  }
+	  
+	  .footer
+	  {
+		text-align:center;
+	  }
+	  
