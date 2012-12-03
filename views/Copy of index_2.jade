@@ -28,11 +28,13 @@ head
               li
                 a(href='#contact') Contact
             ul.nav.pull-right
-              li
+                li
                 if (typeof(email) !== undefined && email != '') 
                   a#email(href='#email') #{email}	
                 else (typeof(googleLoginURI) !== undefined && googleLoginURI != '') 
-                  a#login(href ='#{googleLoginURI}') Login With Google
+                  a#login(href ='#{googleLoginURI}') 
+                    | Login With &nbsp;
+                    img(src='/stylesheets/img/google.png')
           //
             /.nav-collapse 
     #home_page.container
