@@ -12,6 +12,7 @@
 	var client_id = '930662704169-25secosrcggebfi0o2782enonuqfq1p8.apps.googleusercontent.com';
 	var client_secret = 'R8Vu1AwHJfETR9iD19TifRF8';
 	var redirect_uri = 'http://localhost:3001/wmrest/authorize';
+	//var proxyURL = 'http://cwybcproxy.us.dnb.com:8080';
 	var proxyURL = 'http://cwybcproxy.us.dnb.com:8080';
 	var proxyURL = '';
 	
