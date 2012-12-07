@@ -36,6 +36,7 @@ servicesHandle.map('get','/authorize',services.authorize);
 servicesHandle.map('post','/save_device',services.save_device);
 servicesHandle.map('post','/atomic_save',services.atomic_save);
 servicesHandle.map('get','/loadDeviceData',services.loadDeviceData);
+servicesHandle.map('get','/getFileURL',services.getFileURL);
 
 app.listen(3001, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
