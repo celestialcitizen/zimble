@@ -355,7 +355,7 @@
 	*/
 	exports.updateGoogleEvent = function(requestObj,responseObj,updateData,updateMethod,eventId,callback)
 	{
-		console.log('In updateGoogleEvent');
+		console.log('In updateGoogleEvent' + updateMethod);
 		//console.log('updateMethod :' + updateMethod);
 		//console.log('updateData :' + updateData);
 		//console.log(updateMethod + ' updating eventId :' + eventId);
@@ -391,7 +391,7 @@
 				delete requestOptions['body'];
 			}
 			
-			//console.log(requestOptions);
+			console.log(requestOptions);
 			
 			 requestDefault(requestOptions,function (error, response, body) 
 			 {
@@ -408,9 +408,15 @@
 					  if(response.statusCode == 200 || response.statusCode == 204)
 					  {
 						  console.log('In Callback After Update Event');
-						  var googleResponse = JSON.parse(response.body);
-						  var eventid = googleResponse.id;
-						  console.log('event id is : ' + eventid);
+						  var googleResponse = '',eventid = '';
+						  
+						  if(response.body)
+						  {
+							googleResponse = JSON.parse(response.body);
+							eventid = googleResponse.id;
+							console.log('event id is : ' + eventid);
+						  }
+						  
 						  if(updateMethod == 'DELETE')
 						  {
 							callback(null,requestObj,responseObj,'');
@@ -483,7 +489,16 @@
 					}
 					else
 					{
-						if(updateMethod == 'POST')
+					
+						var respBody = '';
+						
+						if(response.body)
+						{
+							respBody = response.body;
+						}
+						callback(null,response.body);
+						
+						/*if(updateMethod == 'POST')
 						{
 							
 							//console.log('XML Feed Is : ' + response.body);
@@ -493,10 +508,10 @@
 								var feedDataJSON = JSON.parse(JSON.stringify(result));
 								console.log(feedDataJSON);
 							});*/
-							callback(null,response.body);
-						}
-						else
-							callback(null,null);
+							//callback(null,response.body);
+						//}
+						//else
+						//	callback(null,null);
 					}
 				  }
 				  
@@ -527,4 +542,6 @@
 			});
 		}
 	}
+	
+	
 	
