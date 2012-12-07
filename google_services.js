@@ -72,7 +72,7 @@
 		{
 		   console.log('In Create New Excel Sheet');
 
-		   fs.readFile('WMTEST_FILE.xls', function(err,data)
+		   fs.readFile('WM_DEVICE_LIST.xlsx', function(err,data)
 		   {
 			  if(err) 
 			  {
