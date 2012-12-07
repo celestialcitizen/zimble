@@ -1,11 +1,9 @@
 {
-  "name": "wm-app",
-  "scripts": {
-    "start": "app.js"
-  },
+  "name":"zimble",
   "version": "0.0.1",
   "engines": {
-    "node": "0.6.x"
+    "node": "0.6.x",
+	"npm":"1.1.x"
   },
   "subdomain": "wm.celestialcitizen",
   "dependencies": {
