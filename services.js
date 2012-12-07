@@ -9,6 +9,7 @@
 	var jstoxml = require('jstoxml');
 	var async = require('async');
 	var gserv = require('./google_services');
+	var moment = require('./moment.min');
 	
 /*
  method called after google authorization is complete
@@ -148,36 +149,8 @@
 			{
 				console.log('Error while setting up Google Calendar Options : Error is : ' + err);
 			}
-			else
-			{
-				/*async.waterfall(
-				[
-					function(callback)
-					{
-						gserv.getGoogleDocFile(req,res,callback);
-					},
-					function(flag,req,res,callback)
-					{
-						gserv.createNewExcelSheet(flag,req,res,callback);
-					},
-					function(flag,req,res,callback)
-					{
-						gserv.updateFileName(flag,req,res,callback);
-					},
-					function(flag,req,res,callback)
-					{
-						gserv.readSpreadSheet(flag,req,res,callback);
-					},
-				
-				],function(err,res,resultArray)
-				{
-					//console.log('In main callBackFunction');
-					//console.log('In callBackFunction ' + result1 + ' ' + result2);
-					res.json(resultArray);
-				});*/
-			}
-			
 		});
+		
 		//check if the user google drive account has a google spreadsheet by name
 		//WM_DEVICE_LIST.xls
 		//if such a file does not exist create a file
@@ -221,103 +194,15 @@
 	}
 	
 	
-	function postRequest(requestOptions,postData,responseObj) 
-	{
-		  console.log('Making the Post Request');
-		  console.log('Post Data is:' + postData);
-		  // Set up the request
-		  var post_req = http.request(requestOptions, function(res) 
-		  {
-			   console.log('In Post Callback');
-			   console.log('Response is ' + res);
-			  var data = '';
-			  //res.setEncoding('utf8');
-			  res.on('data', function (chunk) {
-				 console.log('Response: ' + chunk);
-				 data += chunk;	
-				  //expressResponse.json(chunk);
-			  });
-			  res.on('end',function()
-			  {
-				if(data)
-				{
-					console.log('Respons Data is:' +  data);
-					/*try
-					{
-						var jsonResult  = JSON.parse(data);
-						//expressResponse.json(jsonResult.topics);
-						responseObj.json(jsonResult);
-					}
-					catch(err)
-					{
-						console.log(err);
-						var errMessage = {"message":"Error"};
-						//console.log("Contacting Node.js RSS Services");
-						responseObj.json(errMessage);
-					}*/
-				}
-			  });
-		  });
-
-		  // post the data
-		  post_req.write(postData);
-		  post_req.end();
-
-	};
 	
-    exports.save_device = function(req,res)
-    {
-		//console.log(req.session.username);
-
-		var device_array = req.body;
-		var deviceList = new Array();
-		var deviceCount = 0;
-		var userinfo = device_array['userinfo'];
-		delete device_array['userinfo'];
-		
-		for (var key in device_array) 
-		{
-		   var obj = device_array[key];
-		   var tmpObj = {};
-		   tmpObj['gsx:devicename'] = obj['devicename'];
-		   tmpObj['gsx:modeldetails'] = obj['modeldetails'];
-		   tmpObj['gsx:purchasedate'] = obj['purchasedate'];
-		   tmpObj['gsx:coverageperiod'] = obj['coverageperiod'];
-		   tmpObj['gsx:expirydate'] = obj['expirydate'];
-		   tmpObj['gsx:emailalert'] = obj['emailalert'];
-		   tmpObj['workSheetId'] = req.session.workSheetId;
-		   tmpObj['access_token'] = req.session.access_token;
-		   if(obj['updateurl'])
-			tmpObj['updateurl'] = obj['updateurl'];
-			
-		   deviceList[deviceCount] = tmpObj;
-		   deviceCount++;
-		}
-		
-		async.forEach(deviceList, updateSpreadSheetRow, function(err)
-		{
-			var statusObj = {};
-			if(err)
-			{
-				console.log('Async CallBack Error:' + err);
-				statusObj['status'] = 'error';
-			}
-			else
-			{
-				console.log('Async CallBack Success:');
-				statusObj['status'] = 'success';
-			}
-			
-			res.json(statusObj);
-		});
-		
-		console.log('Async Row Update Started');
-	}
 	
+	/*
+		Perform Create,Update,Delete operations for each row in the google spreadsheet
+	*/
 	exports.atomic_save = function(req,res)
     {
 		//console.log(req.session.username);
-		console.log(req.body);
+		console.log('Device Save Data: ' + JSON.stringify(req.body));
 		var device = req.body;
 		var userinfo = device['userinfo'];
 		var deviceList = new Array();
@@ -343,22 +228,7 @@
 		
 		deviceList[0] = tmpObj;
 		
-		/*async.forEach(deviceList, updateSpreadSheetRow, function(err)
-		{
-			var statusObj = {};
-			if(err)
-			{
-				console.log('Async CallBack Error:' + err);
-				statusObj['status'] = 'error';
-			}
-			else
-			{
-				console.log('Async CallBack Success:');
-				statusObj['status'] = 'success';
-			}
-			
-			res.json(statusObj);
-		});*/
+	
 		
 		async.waterfall(
 		[
@@ -375,19 +245,21 @@
 				//if(device['updateurl'] || device['deleteurl'])
 				//{
 					
-					if( (device['updateurl'] && device['emailalert'] == 'No') ||  device['deleteurl'])
+					//if( (device['updateurl'] && device['emailalert'] == 'No') ||  device['deleteurl'])
+					if( (device['eventid'] && device['emailalert'] == 'No') ||  device['deleteurl'])
 					{
-						if(device['eventid'] && device['eventid'] != 'NA') // if an event exists
+						if(device['eventid'] && device['eventid'] != 'NA' ) // if an event exists
 						{
 							updateMethod = 'DELETE';
 						}
 					}
-					else if(device['updateurl'] && device['emailalert'] == 'Yes' && device['eventid'])
+					//else if(device['updateurl'] && device['emailalert'] == 'Yes' && device['eventid'])
+					else if(device['emailalert'] == 'Yes' && device['eventid'] && device['eventid'] != 'NA' )
 					{
 						updateMethod = 'PUT';
 						//console.log('updateMethod is resolved to : ' + updateMethod);
 					}
-					else if(device['emailalert'] == 'Yes' )
+					else if( device['emailalert'] === 'Yes' )
 					{
 						updateMethod = 'POST';
 						//console.log('updateMethod is resolved to : ' + updateMethod);
@@ -396,13 +268,14 @@
 					//console.log('updateMethod is resolved to : ' + updateMethod);
 					if(updateMethod == 'PUT' || updateMethod == 'POST')
 					{
-						//if device data is getting updated and the expiry date also changes then we do this
-						if(updateMethod == 'PUT' && eval(device['eventFlag']))
+						//if device data is getting updated and the event date changes then we have to use the PUT method
+						if( ( updateMethod == 'PUT' && eval(device['eventFlag']) ) || updateMethod == 'POST')
 						{
+							var eventDate = moment(device['expirydate'],'DD/MM/YYYY');
 							eventData['end'] = {};
-							eventData['end']['date'] = device['expirydate'];
+							eventData['end']['date'] = eventDate.format('YYYY-MM-DD');
 							eventData['start'] = {};
-							eventData['start']['date'] = device['expirydate'];
+							eventData['start']['date'] = eventDate.format('YYYY-MM-DD');
 						}
 						else
 						{
@@ -450,8 +323,20 @@
 				   tmpDeviceObj['gsx:purchasedate'] = device['purchasedate'];
 				   //tmpDeviceObj['gsx:coverageperiod'] = device['coverageperiod'];
 				   tmpDeviceObj['gsx:expirydate'] = device['expirydate'];
-				   tmpDeviceObj['gsx:notes'] = device['notes'];
+				   
+				   if(device['notes'])
+				   {
+						tmpDeviceObj['gsx:notes'] = device['notes'];
+				   }
+				   else
+				   {
+						tmpDeviceObj['gsx:notes'] = 'NA';
+				   }
+				   
+				   
 				   tmpDeviceObj['gsx:emailalert'] = device['emailalert'];
+				   
+				   
 				   if(eventid)
 						tmpDeviceObj['gsx:eventid'] = eventid;
 				   else
@@ -605,111 +490,28 @@
    };
    
    
-   
-  
-   function createWorkSheet(requestObj,responseObj)
-   {
-		 console.log('In Callback createWorkSheet ');
-		var workSheetData = '<entry xmlns="http://www.w3.org/2005/Atom" xmlns:gs="http://schemas.google.com/spreadsheets/2006">  <title>Device List</title>  <gs:rowCount>50</gs:rowCount>  <gs:colCount>8</gs:colCount></entry>';
-		
-		
-		
-		var getGoogleDocFileURL = "https://spreadsheets.google.com/feeds/worksheets/" + requestObj.session.spreadSheetId + "/private/full";
-		 var requestOptions = 
-		 {  'uri': getGoogleDocFileURL,
-			'proxy': 'http://cwybcproxy.us.dnb.com:8080/',
-			'method' : 'POST',
-			'headers' :   {
-				  'Authorization' : 'Bearer ' + requestObj.session.access_token,
-				  'Content-Type': 'application/atom+xml'
-			  }
-		}; 
-		
-		 request(requestOptions,function (error, response, body) 
-		 {
-			  console.log('In Callback After creating Google worksheet');
-			  console.log(response.statusCode);
-			  console.log(response.body);
-			  //console.log(response.body.items[0].id);
-			  //var googleResponse =  JSON.parse(response.body);
-			  //requestObj.session.spreadSheetId = googleResponse.items[0].id;
-		});
-		
-   }
-   
-    function getWorkSheet(requestObj,responseObj)
-   {
-		
-		console.log('GET Worksheet FEED');
-		var workSheetFeed = "https://spreadsheets.google.com/feeds/spreadsheets/private/full";
-		 var requestOptions = 
-		 {  'uri': workSheetFeed,
-			'proxy': 'http://cwybcproxy.us.dnb.com:8080/',
-			'method' : 'GET',
-			'headers' :   {
-				  'Authorization' : 'Bearer ' + requestObj.session.access_token
-			  }
-		}; 
-		
-		 request(requestOptions,function (error, response, body) 
-		 {
-			  console.log('In Callback After GET request for Google Spreadsheet');
-			  console.log(response.statusCode);
-			  //console.log(response.body);
-			  //console.log(response.headers);
-			  //console.log(response.body.items[0].id);
-			  //var googleResponse =  JSON.parse(response.body);
-			  //requestObj.session.spreadSheetId = googleResponse.items[0].id;
-		});
-		
-   }
-   
-   function writeToGoogleSpreadSheet(requestObj,responseObj)
-   {
-   }
-   
-   function readFile(requestObj,responseObj)
-   {
-		if(requestObj) console.log('request obj exists');
-	   fs.readFile('WMTEST_FILE.xls', function(err,data)
-	   {
-		  if(err) {
-			console.error("Could not open file: %s", err);
-			process.exit(1);
-		  }
-
-			uploadFile(requestObj,responseObj,data);
-			//console.log(data);
-			//return data;
-		});
-	
-	}
-	
-	function uploadFile(requestObj,responseObj,fileData)
+   /*
+		Returns the URL for the Spreadhseet
+	*/
+	exports.getFileURL = function(req,res)
 	{
-		if(requestObj) console.log('request obj exists');
-		 var uploadRequestOptions = 
-		 {  'uri': requestObj.session.locationURI,
-			'proxy': 'http://cwybcproxy.us.dnb.com:8080/',
-			'method' : 'PUT',
-			'headers' :   {
-				  'Content-Type': 'application/vnd.ms-excel',
-				 // 'Content-Length' : fileData.length,
-				  //'Content-Type': 'application/json',
-				  //'Authorization' : requestObj.session.access_token
-				  'Authorization' : 'Bearer ' + requestObj.session.access_token
-			  },
-			'body' : fileData
-		}; 
-				
-		request(uploadRequestOptions,function (error, response, body) 
+		console.log('In getFileURL');
+		var baseURL = 'https://docs.google.com/spreadsheet/ccc?key=';
+		var urlObj = {};
+
+		if(req.session.workSheetId)
 		{
-			console.log('In Callback After Uploading Excel Sheet');
-			console.log(response.statusCode);
-			console.log(response.headers);
-		});
+			urlObj.url = baseURL + req.session.workSheetId;
+		}
+		else
+		{
+			urlObj.error = 'URL Could Not Be Fetched';
+		}
+		
+		res.json(urlObj);
+		
 	}
-	
+
 	/*
 		Utility to convert XML feed from spreadsheet into JSON for 
 		device xml
@@ -729,6 +531,8 @@
 			//console.log(feedDataJSON['feed'].entry[0].content[0]['_']);
 			
 			var deviceList = '';
+			
+			
 			if(feedDataJSON['feed'])
 			{
 				deviceList = feedDataJSON['feed'].entry;
@@ -779,19 +583,19 @@
 							//console.log('Update URL is:' + deviceList['link'][1]["$"]["href"]);
 						}
 						deviceArray['curr_obj'] = tmpDevObj; 
-						//console.log(tmpDevObj);
+						console.log('curr_obj is ' + JSON.stringify(deviceArray['curr_obj']));
 						
 				}
 			}
-			//console.log(JSON.stringify(deviceList));
 			
 			
 			
-			console.log('Device Array Is: ' + JSON.stringify(deviceArray));
+			
+			//console.log('Device Array Is: ' + JSON.stringify(deviceArray));
 			responseObj.json(deviceArray);
 			//callback(null,responseObj,deviceArray);
 			
 			
-			//console.log(JSON.stringify(result));
+			
 		  })
 	}

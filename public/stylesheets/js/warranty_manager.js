@@ -29,6 +29,8 @@
 			deviceName =  '' , modelName =  '' , purchaseDate =  '' ,coveragePeriod =  '' ,emailAlert =  '', notes = '';
 			notes = $('textarea#notes').val();
 			
+			var purchaseDateObj , expiryDateObj;
+			
 			if(  $('input#dev_name').val() )
 			{
 				deviceName = $('input#dev_name').val();
@@ -36,7 +38,8 @@
 			else
 			{
 				errorFlag = true;
-				errorMessage = errorMessage + 'input#dev_name,';
+				//errorMessage = errorMessage + 'input#dev_name,';
+				errorMessage = errorMessage + 'Device Name is Empty,';
 			}
 			
 			/*if(  $('input#mod_det').val() )
@@ -52,21 +55,27 @@
 			if(  $('input#p_date').val() )
 			{
 				purchaseDate = $('input#p_date').val();
+				var year = purchaseDate.split('/')[2] - 0, month = purchaseDate.split('/')[1] - 1, day = purchaseDate.split('/')[0];
+				purchaseDateObj = moment(new Date(year,month,day));
 			}
 			else
 			{
 				errorFlag = true;
-				errorMessage = errorMessage + 'input#p_date,';
+				//errorMessage = errorMessage + 'input#p_date,';
+				errorMessage = errorMessage + 'Purchase Date is Empty,';
 			}
 			
 			if(  $('input#e_date').val() )
 			{
 				expiryDate = $('input#e_date').val();
+				var year = expiryDate.split('/')[2] - 0, month = expiryDate.split('/')[1] - 1, day = expiryDate.split('/')[0];
+				expiryDateObj = moment(new Date(year,month,day));
 			}
 			else
 			{
 				errorFlag = true;
-				errorMessage = errorMessage + 'input#e_date,';
+				//errorMessage = errorMessage + 'input#e_date,';
+				errorMessage = errorMessage + 'Expiry Date is Empty,';
 			}
 			
 			/*if(  $('input#c_period').val() && isNormalInteger($('input#c_period').val()) )
@@ -81,10 +90,22 @@
 			
 			emailAlert = $('input#e_alert').is(':checked') ? 'Yes': 'No';
 			
+			if(purchaseDateObj && expiryDateObj)
+			{
+				if(expiryDateObj.diff(purchaseDateObj) < 0 )
+				{
+					errorFlag = true;
+				
+					errorMessage = errorMessage + 'Purchase date is greater than expiry date,';
+				}
+			}
+			
 			if(errorFlag)
 			{
 				//$(errorMessage).tooltip('show');
-				$('div#add_device_err').show('slow',function(){ $(errorMessage).tooltip('show');});
+				$('div#add_device_err h4.alert-heading').text(errorMessage);
+				$('div#add_device_err').show('slow');
+				//$('div#add_device_err').show('slow',function(){ $(errorMessage).tooltip('show');});
 			}
 			else
 			{
@@ -137,8 +158,10 @@
 				deviceArray['dev_' + deviceCount] = tempDeviceObj;
 				//var newDeviceRowHTML = '<tr><td><a class="span2 btn btn-primary device_data"  id="dev_' +  deviceCount + ' "> ' + deviceName + '</a> </td></tr>';
 				//var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  deviceCount + '"> ' + deviceName + '</a> </td><td><a class="span2"> ' + expiryDateStringUI + 
-				var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  deviceCount + '"> ' + deviceName + '</a> </td><td><a class="span2"> ' + expiryDate + 
-				'</a></td><td><i class="icon-trash"></i></td></tr>';
+				//var newDeviceRowHTML = '<tr><td><a class="span2 device_data"  id="dev_' +  deviceCount + '"> ' + deviceName + '</a> </td><td><a class="span2"> ' + expiryDate + 
+				//'</a></td><td><i class="icon-trash"></i></td></tr>';
+				var newDeviceRowHTML = '<tr><td><a class="span3 device_data"  id="dev_' +  deviceCount + '"> ' + deviceName + '</a> </td><td> <i class="icon-edit"></i> </td>' + 
+				'<td> <i class="icon-trash"></i> </td></tr>';
 				//$('div#device_list').append(newDeviceRowHTML);
 				$('tbody').append(newDeviceRowHTML);
 				atomicSaveDevice('dev_' + deviceCount);
@@ -161,7 +184,7 @@
 				var deviceIDRowSelector = 'a#' + activeDeviceID;
 				$(deviceIDRowSelector).text(deviceName);
 				//$(deviceIDRowSelector).parent().next().html('<a class="span2"> ' + expiryDateStringUI + '</a>');
-				$(deviceIDRowSelector).parent().next().html('<a class="span2"> ' + expiryDate + '</a>');
+				//$(deviceIDRowSelector).parent().next().html('<a class="span2"> ' + expiryDate + '</a>');
 				atomicSaveDevice(activeDeviceID);
 			}
 			//resetForm();
@@ -330,6 +353,22 @@
 				deviceArray = data;
 				$('div#load_alert').hide('slow');
 				loadDevices();
+				getSpreadSheetURL();
+			});
+		}
+		
+		function getSpreadSheetURL()
+		{
+			$.get('/wmrest/getFileURL',function(data)
+			{
+				if(data.url)
+				{
+					$('a#spreadsheet_link').attr('href',data.url);
+				}
+				else if(data.error)
+				{
+					console.log('Error Fetching Spreadsheet URL ' + data.error);
+				}
 			});
 		}
 		
@@ -404,12 +443,15 @@
 						$('div#account_page').show('slide',{direction:'right'},500);
 						currentScreen = 'deviceList';
 						if(eval(jQuery.isEmptyObject(deviceArray)))
+						{
 							getDevices();
+							//getSpreadSheetURL();
+						}
 					});
 				}
 			}
 			
-			$('a#accounts').click(function(event)
+			$('a#accounts,a#email').click(function(event)
 			{
 				event.preventDefault();
 				if(eval(checkLogin()) )
@@ -424,7 +466,10 @@
 							$('div#account_page').show('slide',{direction:'right'},500);
 							currentScreen = 'deviceList';
 							if(eval(jQuery.isEmptyObject(deviceArray)))
+							{
 								getDevices();
+								//getSpreadSheetURL();
+							}
 						});
 					}
 				}
@@ -444,6 +489,7 @@
 				{
 					//$(this).parent().addClass('active');
 					$('a#accounts').parent().removeClass('active');
+					$('a#email').parent().removeClass('active');
 					
 					if(currentScreen == 'deviceList')
 					{

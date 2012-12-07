@@ -71,11 +71,11 @@
 						<h3> How's It Built</h3><br/>
 						<div class="intro_text">
 								<ul class="unstyled">
-								  <li>NodeJS</li>
-								  <li>Twitter BootStrap</li>
-								  <li>Google OAuth 2.0</li>
-								  <li>Google Spreadsheet API</li>
-								  <li>Google Calendar API</li>
+								  <li><a href="http://nodejs.org/" class="intro_link" > NodeJS </a></li>
+								  <li><a href="http://twitter.github.com/bootstrap/" class="intro_link" > Twitter Bootstrap </a></li>
+								  <li><a href="https://developers.google.com/accounts/docs/OAuth2" class="intro_link" > Google OAuth2.0 </a></li>
+								  <li><a href="https://developers.google.com/google-apps/calendar/" class="intro_link" > Google Spreadsheet API </a></li>
+								  <li><a href="https://developers.google.com/google-apps/spreadsheets/" class="intro_link" > Google Calendar API </a></li>
 								</ul>
 						</div>
 			</div>
@@ -93,7 +93,7 @@
 		
 			<div class="offset2 span2 label label-info hidden-phone">
 				<div class="intro2">
-					<h1>@</h1>
+					<h1>#</h1>
 				</div>
 			</div>
 			<div class="span5 label label-info" id="how">
@@ -113,10 +113,10 @@
 		
 		<div class="row">
 			<div class="offset2 span5 label label-info" id="who">
-						<h3> Who's Created It</h3><br/>
+						<h3> Contact Me</h3><br/>
 						<div class="intro_text">
 							<ul class="unstyled">
-							  <li>Anand Sunderraman</li>
+							  <li>celestialcitizen@gmail.com</li>
 							  <li>Experimenting On NodeJS</li>
 							  <li>Built It Just For FUN !!</li>
 							</ul>
@@ -124,7 +124,7 @@
 			</div>
 				<div class=" span2 label label-info hidden-phone">
 				<div class="intro2">
-					<h1>#</h1>
+					<h1>@</h1>
 				</div>
 			</div>
 		
@@ -164,6 +164,7 @@
 					</tbody>
 					</table> 
 						<button id="add_device_button" class="btn btn-primary span2">Add Device</button>
+						<a href="" id="spreadsheet_link" class="btn btn-primary span2">View Spreadsheet</a>
 						<!--button id="save_device" class="btn btn-primary span2">Save</button-->
 					
 				</div>
@@ -196,14 +197,14 @@
 						   <div class="control-group">
 							<label class="control-label" for="p_date">Purchase Date</label>
 							<div class="controls">
-							  <input type="text" id="p_date" placeholder="Purchase Date">
+							  <input type="text" id="p_date" class="date" placeholder="Purchase Date" readonly>
 							</div>
 						  </div>
 						  
 						   <div class="control-group">
 							<label class="control-label" for="e_date">Expiry Date</label>
 							<div class="controls">
-							  <input type="text" id="e_date" placeholder="Expiry Date">
+							  <input type="text" id="e_date" class="date" placeholder="Expiry Date" readonly>
 							</div>
 						  </div>
 						  
@@ -217,7 +218,7 @@
 						  <div class="control-group">
 							<div class="controls">
 							  <label class="checkbox">
-								<input type="checkbox"> Calendar Alert
+								<input type="checkbox" id="e_alert"> Calendar Alert
 							  </label>
 							</div>
 						  </div>
@@ -310,6 +311,7 @@
 	  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js"></script>
 	  <script src="stylesheets/js/bootstrap-datepicker.js"></script>
 	  <script src="stylesheets/js/warranty_manager.js"></script>
+	  <script src="stylesheets/js/moment.min.js"></script>
 	  
 	 
   </body>

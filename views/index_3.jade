@@ -47,11 +47,21 @@ head
           br
           .intro_text
             ul.unstyled
-              li NodeJS
-              li Twitter BootStrap
-              li Google OAuth 2.0
-              li Google Spreadsheet API
-              li Google Calendar API
+              li
+                a.intro_link(href='http://nodejs.org/')
+                  | NodeJS
+              li
+                a.intro_link(href='http://twitter.github.com/bootstrap/')
+                  | Twitter Bootstrap
+              li
+                a.intro_link(href='https://developers.google.com/accounts/docs/OAuth2')
+                  | Google OAuth2.0
+              li
+                a.intro_link(href='https://developers.google.com/google-apps/calendar/')
+                  | Google Spreadsheet API
+              li
+                a.intro_link(href='https://developers.google.com/google-apps/spreadsheets/')
+                  | Google Calendar API
         .span2.label.label-info.hidden-phone
           .intro
             h1 !
@@ -59,7 +69,7 @@ head
       .row
         .offset2.span2.label.label-info.hidden-phone
           .intro2
-            h1 @
+            h1 #
         #how.span5.label.label-info
           h3  What's Cool
           br
@@ -71,16 +81,16 @@ head
       br
       .row
         #who.offset2.span5.label.label-info
-          h3  Who's Created It
+          h3  Contact Me
           br
           .intro_text
             ul.unstyled
-              li Anand Sunderraman
+              li celestialcitizen@gmail.com
               li Experimenting On NodeJS
               li Built It Just For FUN !!
         .span2.label.label-info.hidden-phone
           .intro2
-            h1 #
+            h1 @
       br
     #account_page.container(style='display: none;')
       //
@@ -104,6 +114,7 @@ head
                   | Delete
             tbody
           button#add_device_button.btn.btn-primary.span2 Add Device
+          a.btn.btn-primary.span2#spreadsheet_link(href='') View Spreadsheet
           //
             button id="save_device" class="btn btn-primary span2">Save</button
     #add_device_modal.container(style='display: none;')
@@ -122,11 +133,11 @@ head
               .control-group
                 label.control-label(for='p_date') Purchase Date
                 .controls
-                  input#p_date(type='text', placeholder='Purchase Date')
+                  input#p_date.date(type='text', placeholder='Purchase Date', readonly='readonly')
               .control-group
                 label.control-label(for='e_date') Expiry Date
                 .controls
-                  input#e_date(type='text', placeholder='Expiry Date')
+                  input#e_date.date(type='text', placeholder='Expiry Date', readonly='readonly')
               .control-group
                 label.control-label(for='notes') Notes
                 .controls
@@ -134,7 +145,7 @@ head
               .control-group
                 .controls
                   label.checkbox
-                    input(type='checkbox')
+                    input#e_alert(type='checkbox')
                     | Calendar Alert
               .control-group
                 .controls
@@ -217,3 +228,4 @@ head
     script(src='http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js')
     script(src='/stylesheets/js/bootstrap-datepicker.js')
     script(src='/stylesheets/js/warranty_manager.js')
+    script(src='/stylesheets/js/moment.min.js')
