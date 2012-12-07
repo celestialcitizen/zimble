@@ -5,7 +5,6 @@
     "node": "0.6.x",
 	"npm":"1.1.x"
   },
-  "subdomain": "wm.celestialcitizen",
   "dependencies": {
     "express": "2.5.8",
     "express-resource": "0.2.4",
